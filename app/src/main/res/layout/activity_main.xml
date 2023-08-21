@@ -20,35 +20,35 @@
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
                 android:id="@+id/poster"
-                android:src="@drawable/ironPetticoat"
+                android:src="@drawable/iron_petticoat"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/poster2"
-                android:src="@drawable/creatureWithTheAtomBrain"
+                android:src="@drawable/creature_with_the_atom_brain"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/poster3"
-                android:src="@drawable/firstManIntoSpace"
+                android:src="@drawable/first_man_into_space"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/poster4"
-                android:src="@drawable/storyOfMankind"
+                android:src="@drawable/story_of_mankind"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/poster5"
-                android:src="@drawable/submarineSeahawk"
+                android:src="@drawable/submarine_seahawk"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
