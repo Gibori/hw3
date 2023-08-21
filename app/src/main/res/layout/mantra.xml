@@ -44,6 +44,7 @@
         android:layout_marginTop="10dp"
         android:text="BUTTON"
         android:gravity="center"
+        android:onClick="onClickToast"
         app:layout_constraintStart_toStartOf="@id/textView"
         app:layout_constraintEnd_toEndOf="@id/textView"/>
 
