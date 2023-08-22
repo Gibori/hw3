@@ -48,7 +48,8 @@
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/poster5"
-                android:src="@drawable/submarine_seahawk"
+                android:src="@drawable/submarine_seahawk
+"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
