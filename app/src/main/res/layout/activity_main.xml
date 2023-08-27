@@ -48,8 +48,7 @@
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/poster5"
-                android:src="@drawable/submarine_seahawk
-"
+                android:src="@drawable/submarine_seahawk"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -81,30 +80,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_bar">
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_menu"
+            android:onClick="onClickBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="button" />
+            android:text="@string/btn_menu"
+            android:textColor="@color/white"
+            android:background="?selectableItemBackgroundBorderless"/>
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_favorites"
+            android:onClick="onClickBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="button" />
+            android:text="@string/btn_favorites"
+            android:textColor="@color/white"
+            android:background="?selectableItemBackground"/>
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_see_later"
+            android:onClick="onClickBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="button" />
+            android:text="@string/btn_see_later"
+            android:textColor="@color/white"
+            android:background="?selectableItemBackground"/>
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btn_selections"
+            android:onClick="onClickBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="button" />
+            android:text="@string/btn_selections"
+            android:textColor="@color/white"
+            android:background="?selectableItemBackground"/>
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btn_settings"
+            android:onClick="onClickBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="button" />
+            android:text="@string/btn_settings"
+            android:textColor="@color/white"
+            android:background="?selectableItemBackground"/>
     </LinearLayout>
 
     
