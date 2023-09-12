@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#9FA8DA</color>
+    <color name="colorPrimaryDark">#5C6BC0</color>
+    <color name="colorAccent">#BA3A3A</color>
+    <color name="colorNightPrimary">#FF454749</color>
+    <color name="colorNightPrimaryDark">#28292B</color>
+    <color name="colorNightAccent">#141A52</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFEB3B</color>
