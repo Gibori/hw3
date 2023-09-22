@@ -1,14 +1,33 @@
 package local.zva.hw3
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.recyclerview.widget.LinearLayoutManager
 import local.zva.hw3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMA: ActivityMainBinding
+    val filmDataBase = listOf(
+        Film("Prazske noci", R.drawable.pst_1_pn, "Что-то там про Прагу."),
+        Film("Santo el enmascarado de plata y Blue Demon contra los monstruos", R.drawable.pst_2_sbvm,
+            "To foil his plan for world domination, wrestling superheroes El Santo " +
+                    "and Blue Demon battle the mad Dr. Halder and his army of reanimated monsters."),
+        Film("The Maze", R.drawable.pst_3_m, "Шотландия, Замок, Лабиринт из кустов ..etc"),
+        Film("Forbidden Planet", R.drawable.pst_4_fp, "Sci-fi 56го года)"),
+        Film("Colossus: The Forbin Project", R.drawable.pst_5_c,
+            "Thinking this will prevent war, the US government gives an impenetrable " +
+                    "supercomputer total control over launching nuclear missiles." +
+                    " But what the computer does with the power is unimaginable to its creators."),
+        Film("Tanin no kao", R.drawable.pst_6_af, "A businessman with a disfigured face obtains a lifelike mask from his doctor, but the mask starts altering his personality."),
+        Film("Invasión", R.drawable.pst_7_i, "Вторжение.."),
+        Film("Дорога к звездам", R.drawable.pst_8_rs, "Советская НФ"),
+    )
+    private lateinit var filmsAdapter: FilmListRecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingMA = ActivityMainBinding.inflate(layoutInflater)
@@ -26,6 +45,19 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        bindingMA.recyclerMain.apply {
+            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.onItemClickListener {
+                override fun click(film: Film) {
+                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+                    startActivity(intent)
+                }
+            })
+            adapter = filmsAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            val decorator = TopSpacingItemDecoration(8)
+            addItemDecoration(decorator)
+        }
+        filmsAdapter.addItems(filmDataBase)
         bindingMA.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.favorites -> {
