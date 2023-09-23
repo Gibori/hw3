@@ -11,7 +11,7 @@ class DetailsActivity : AppCompatActivity() {
         val bindingDA = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(bindingDA.root)
 
-        val film = intent.extras?.getBundle("film") as Film
+        val film = intent.extras?.get("film") as Film
 
         bindingDA.detailsToolbar.title = film.title
         bindingDA.detailsDescription.text = film.description
