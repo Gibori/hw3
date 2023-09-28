@@ -1,12 +1,10 @@
 package local.zva.hw3
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.recyclerview.widget.LinearLayoutManager
 import local.zva.hw3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         Film("Invasión", R.drawable.pst_7_i, "Вторжение.."),
         Film("Дорога к звездам", R.drawable.pst_8_rs, "Советская НФ"),
     )
-    private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,22 +42,13 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        bindingMA.recyclerMain.apply {
-            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.onItemClickListener {
-                override fun click(film: Film) {
-                    val bundle = Bundle()
-                    bundle.putParcelable("film", film)
-                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)
-                    intent.putExtras(bundle)
-                    startActivity(intent)
-                }
-            })
-            adapter = filmsAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            val decorator = TopSpacingItemDecoration(8)
-            addItemDecoration(decorator)
-        }
-        filmsAdapter.addItems(filmDataBase)
+
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_placeholder, HomeFragment())
+            .addToBackStack(null)
+            .commit()
+
         bindingMA.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.favorites -> {
