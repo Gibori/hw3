@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import local.zva.hw3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var bindingMA: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     val filmDataBase = listOf(
         Film("Prazske noci", R.drawable.pst_1_pn, "Что-то там про Прагу."),
         Film("Santo el enmascarado de plata y Blue Demon contra los monstruos", R.drawable.pst_2_sbvm,
@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindingMA = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(bindingMA.root)
-        bindingMA.topAppBar.setOnMenuItemClickListener {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
                     Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show()
@@ -43,13 +43,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_placeholder, HomeFragment())
-            .addToBackStack(null)
-            .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_placeholder, HomeFragment())
+                //.addToBackStack(null)
+                .commit()
+        }
 
-        bindingMA.bottomNavigation.setOnNavigationItemSelectedListener {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.favorites -> {
                     Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
@@ -67,6 +69,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun launchDetailFragment(film: Film){
+        val bundle = Bundle()
+        bundle.putParcelable("film", film)
+
+        val fragment = DetailsFragment()
+        fragment.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun nightModeChange() {

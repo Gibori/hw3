@@ -1,6 +1,5 @@
 package local.zva.hw3
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,11 +26,7 @@ class HomeFragment : Fragment() {
         binding.recyclerMain.apply {
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.onItemClickListener {
                 override fun click(film: Film) {
-                    val bundle = Bundle()
-                    bundle.putParcelable("film", film)
-                    val intent = Intent(requireContext(), DetailsActivity::class.java)
-                    intent.putExtras(bundle)
-                    startActivity(intent)
+                    (requireActivity() as MainActivity).launchDetailFragment(film)
                 }
             })
             filmsAdapter.addItems((activity as MainActivity).filmDataBase)
