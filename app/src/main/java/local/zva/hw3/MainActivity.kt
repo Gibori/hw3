@@ -3,6 +3,7 @@ package local.zva.hw3
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import local.zva.hw3.databinding.ActivityMainBinding
@@ -69,6 +70,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            AlertDialog.Builder(this)
+                .setTitle("Вы хотите выйти?")
+                .setPositiveButton("Да") {_, _ ->
+                    finish()
+                }
+                .setNegativeButton("Нет") {_, _ ->
+
+                }
+                .show()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     fun launchDetailFragment(film: Film){
