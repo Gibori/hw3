@@ -10,7 +10,7 @@
     <string name="menu_watch_later_title">Посмотреть позже</string>
     <string name="menu_selections_title">Подборки</string>
     <string name="menu_settings_title">Настройки</string>
-    <string name="page_title">Search it!</string>
+    <string name="page_title"></string>
     <string name="night_mode">Ночной режим</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
