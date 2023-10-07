@@ -1,5 +1,6 @@
 package local.zva.hw3
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import local.zva.hw3.databinding.FragmentDetailsBinding
 class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-    val film = arguments?.get("film") as Film
+    private lateinit var film: Film
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,9 +26,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.detailsToolbar.title = film.title
-        binding.detailsDescription.text = film.description
-        binding.detailsPoster.setImageResource(film.poster)
+        setFilmDetails()
 
         val favBtn = binding.detailsFabFavorites
         favBtn.setImageResource(
@@ -43,6 +42,26 @@ class DetailsFragment : Fragment() {
                 film.isInFavorites = true
             }
         }
+
+        binding.detailsFabShare.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(
+                Intent.EXTRA_TEXT,
+                "Check out this film: ${film.title} \n\n ${film.description}"
+            )
+            intent.type = "text/plain"
+
+            startActivity(Intent.createChooser(intent, "Share to:"))
+        }
+    }
+
+    private fun setFilmDetails() {
+        film = arguments?.get("film") as Film
+
+        binding.detailsToolbar.title = film.title
+        binding.detailsDescription.text = film.description
+        binding.detailsPoster.setImageResource(film.poster)
     }
 
 }
