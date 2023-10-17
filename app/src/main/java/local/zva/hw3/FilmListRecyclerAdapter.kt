@@ -4,16 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import local.zva.hw3.databinding.FilmItemBinding
 
 
 class FilmListRecyclerAdapter(private val clickListener: onItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<Film>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val filmViewBinding = FilmItemBinding.inflate(layoutInflater, parent, false)
-        return FilmViewHolder(filmViewBinding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : RecyclerView.ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.film_item, parent, false)
+        return FilmViewHolder(view)
     }
 
     override fun getItemCount(): Int {

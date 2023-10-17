@@ -1,12 +1,18 @@
 package local.zva.hw3
 
 import android.os.Bundle
+import android.transition.Scene
+import android.transition.Slide
+import android.transition.TransitionManager
+import android.transition.TransitionSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import local.zva.hw3.databinding.FragmentHomeBinding
 import java.util.Locale
 
@@ -25,21 +31,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerMain.apply {
-            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.onItemClickListener {
-                override fun click(film: Film) {
-                    (requireActivity() as MainActivity).launchDetailFragment(film)
-                }
-            })
-            filmsAdapter.addItems((activity as MainActivity).filmDataBase)
-            adapter = filmsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            val decorator = TopSpacingItemDecoration(8)
-            addItemDecoration(decorator)
-        }
 
-        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        val scene = Scene.getSceneForLayout(binding.homeFragmentRoot, R.layout.merge_home_screen_content, requireContext())
+        TransitionManager.go(scene, initTransaction())
+
+
+        binding.homeFragmentRoot.findViewById<SearchView>(R.id.search_view).setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
@@ -56,5 +53,35 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
+        initRV()
+        filmsAdapter.addItems((activity as MainActivity).filmDataBase)
+        filmsAdapter.notifyDataSetChanged()
+    }
+
+    private fun initTransaction(): TransitionSet {
+        val searchSlide = Slide(Gravity.TOP).addTarget(R.id.search_view)
+        val rvSlide = Slide(Gravity.BOTTOM).addTarget(R.id.recycler_main)
+        val transition = TransitionSet().apply {
+            duration = 500
+            addTransition(searchSlide)
+            addTransition(rvSlide)
+        }
+
+        return transition
+    }
+
+    private fun initRV() {
+        binding.homeFragmentRoot.findViewById<RecyclerView>(R.id.recycler_main).apply {
+            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.onItemClickListener {
+                override fun click(film: Film) {
+                    (requireActivity() as MainActivity).launchDetailFragment(film)
+                }
+            })
+            adapter = filmsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            val decorator = TopSpacingItemDecoration(8)
+            addItemDecoration(decorator)
+        }
     }
 }
+
