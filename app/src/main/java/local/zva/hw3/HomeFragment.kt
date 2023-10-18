@@ -55,7 +55,6 @@ class HomeFragment : Fragment() {
         })
         initRV()
         filmsAdapter.addItems((activity as MainActivity).filmDataBase)
-        filmsAdapter.notifyDataSetChanged()
     }
 
     private fun initTransaction(): TransitionSet {
