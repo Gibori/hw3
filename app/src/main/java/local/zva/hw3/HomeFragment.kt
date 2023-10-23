@@ -20,6 +20,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        retainInstance = true
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,6 +50,8 @@ class HomeFragment : Fragment() {
         })
         initRV()
         filmsAdapter.addItems((activity as MainActivity).filmDataBase)
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity(), 1)
     }
 
     private fun initRV() {

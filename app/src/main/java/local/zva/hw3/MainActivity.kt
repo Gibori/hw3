@@ -8,6 +8,8 @@ import local.zva.hw3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    //переменная для отслеживания текущего фрагмента
+    private lateinit var currentFragment: String
     val filmDataBase = listOf(
         Film("Prazske noci", R.drawable.pst_1_pn, "Что-то там про Прагу."),
         Film("Santo el enmascarado de plata y Blue Demon contra los monstruos", R.drawable.pst_2_sbvm,
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
+            currentFragment = "home"
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_placeholder, HomeFragment(), "home")
@@ -74,24 +77,18 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.findFragmentByTag(tag)
 
     private fun changeFragment(fragment: Fragment, tag: String) {
-        val skipBackStackTags = arrayOf("home", "favorites", "watch_later", "selections")
-
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_placeholder, fragment, tag)
-            .apply {
-                if (tag in skipBackStackTags &&
-                    supportFragmentManager.backStackEntryCount >= 2) {
-                    commit()
-                } else {
-                    addToBackStack(tag)
-                    commit()
-                }
-            }
+            .addToBackStack(tag)
+            .commit()
+
+        currentFragment = tag
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount == 1) {
+        val fragmentTags = arrayOf("home", "favorites", "watch_later", "selections")
+        if (currentFragment in fragmentTags) {
             AlertDialog.Builder(this)
                 .setTitle("Вы хотите выйти?")
                 .setPositiveButton("Да") {_, _ ->
@@ -103,6 +100,10 @@ class MainActivity : AppCompatActivity() {
                 .show()
         } else {
             super.onBackPressed()
+
+            currentFragment = supportFragmentManager.getBackStackEntryAt(
+                supportFragmentManager.backStackEntryCount - 1
+            ).name ?: ""
         }
     }
 
@@ -116,7 +117,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_placeholder, fragment)
-            .addToBackStack(null)
+            .addToBackStack("details")
             .commit()
+
+        currentFragment = "details"
     }
 }

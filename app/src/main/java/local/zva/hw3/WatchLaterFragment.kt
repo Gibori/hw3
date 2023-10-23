@@ -21,5 +21,15 @@ class WatchLaterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currCount = requireActivity().supportFragmentManager.backStackEntryCount - 1
+        val prevCount = requireActivity().supportFragmentManager.backStackEntryCount - 2
+        val currTag = requireActivity().supportFragmentManager.getBackStackEntryAt(currCount)
+            .name
+        val prevTag = requireActivity().supportFragmentManager.getBackStackEntryAt(prevCount)
+            .name
+
+        binding.txtCentr.text = "$prevCount - $prevTag\n$currCount - $currTag"
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.watchFragmentRoot, requireActivity(), 3)
     }
 }
