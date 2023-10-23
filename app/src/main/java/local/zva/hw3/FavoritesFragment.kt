@@ -41,5 +41,4 @@ class FavoritesFragment : Fragment() {
             }
         filmsAdapter.addItems(favoritesList)
     }
-
 }
