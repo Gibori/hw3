@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         initRV()
         filmsAdapter.addItems((activity as MainActivity).filmDataBase)
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity(), 1)
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity())
     }
 
     private fun initRV() {

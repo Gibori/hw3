@@ -41,6 +41,6 @@ class FavoritesFragment : Fragment() {
             }
         filmsAdapter.addItems(favoritesList)
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentRoot, requireActivity(), 3)
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentRoot, requireActivity())
     }
 }

@@ -30,6 +30,6 @@ class WatchLaterFragment : Fragment() {
 
         binding.txtCentr.text = "$prevCount - $prevTag\n$currCount - $currTag"
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.watchFragmentRoot, requireActivity(), 3)
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.watchFragmentRoot, requireActivity())
     }
 }
