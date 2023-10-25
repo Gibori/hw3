@@ -6,7 +6,6 @@ import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateDecelerateInterpolator
 import java.util.concurrent.Executors
 import kotlin.math.hypot
-import kotlin.math.roundToInt
 
 
 object AnimationHelper {
@@ -17,21 +16,34 @@ object AnimationHelper {
             while (true) {
                 if (rootView.isAttachedToWindow) {
                     activity.runOnUiThread {
-                        val itemCenter = rootView.width / (menuItems * 2)
+                        /*val itemCenter = rootView.width / (menuItems * 2)
                         val step = (itemCenter * 2) * (position - 1) + itemCenter
 
                         val x: Int = step
-                        val y: Int = rootView.y.roundToInt() + rootView.height
+                        val y: Int = rootView.y.roundToInt() + rootView.height*/
+
+                        val x: Int = (0..rootView.width).random()
+                        val y: Int = (0..rootView.height).random()
+
+
 
                         val startRadius = 0
                         val endRadius = hypot(rootView.width.toDouble(), rootView.height.toDouble())
 
-                        ViewAnimationUtils.createCircularReveal(rootView, x, y,
-                            startRadius.toFloat(), endRadius.toFloat()).apply {
-                                duration = 500
-                                interpolator = AccelerateDecelerateInterpolator()
-                                start()
+                        fun getX(): Int {
+                            return (0..rootView.width).random()
                         }
+                        fun getY(): Int {
+                            return (0..rootView.width).random()
+                        }
+
+                        ViewAnimationUtils.createCircularReveal(rootView, getX(), getY(),
+                            startRadius.toFloat(), endRadius.toFloat()).apply {
+                            duration = 500
+                            interpolator = AccelerateDecelerateInterpolator()
+                            start()
+                        }
+
                         rootView.visibility = View.VISIBLE
                     }
                     return@execute
