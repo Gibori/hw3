@@ -1,5 +1,7 @@
 package local.zva.hw3
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +18,7 @@ class FavoritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,6 +43,12 @@ class FavoritesFragment : Fragment() {
             }
         filmsAdapter.addItems(favoritesList)
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentRoot, requireActivity())
+        val revealEndListener = object: AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                requireActivity().findViewById<View>(R.id.main_activity).background = binding.root.background
+            }
+        }
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentRoot, requireActivity(), revealEndListener)
     }
 }

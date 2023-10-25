@@ -1,5 +1,7 @@
 package local.zva.hw3
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,7 @@ class SelectionsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSelectionsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -23,6 +25,12 @@ class SelectionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.selectionsFragmentRoot, requireActivity())
+        val revealEndListener = object: AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                requireActivity().findViewById<View>(R.id.main_activity).background = binding.root.background
+            }
+        }
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.selectionsFragmentRoot, requireActivity(), revealEndListener)
     }
 }

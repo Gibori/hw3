@@ -1,5 +1,7 @@
 package local.zva.hw3
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,7 @@ class WatchLaterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWatchLaterBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -21,15 +23,12 @@ class WatchLaterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currCount = requireActivity().supportFragmentManager.backStackEntryCount - 1
-        val prevCount = requireActivity().supportFragmentManager.backStackEntryCount - 2
-        val currTag = requireActivity().supportFragmentManager.getBackStackEntryAt(currCount)
-            .name
-        val prevTag = requireActivity().supportFragmentManager.getBackStackEntryAt(prevCount)
-            .name
+        val revealEndListener = object: AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                requireActivity().findViewById<View>(R.id.main_activity).background = binding.root.background
+            }
+        }
 
-        binding.txtCentr.text = "$prevCount - $prevTag\n$currCount - $currTag"
-
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.watchFragmentRoot, requireActivity())
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.watchFragmentRoot, requireActivity(), revealEndListener)
     }
 }

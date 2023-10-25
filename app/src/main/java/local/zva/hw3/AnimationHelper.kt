@@ -1,5 +1,6 @@
 package local.zva.hw3
 
+import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -10,7 +11,7 @@ import kotlin.math.hypot
 
 object AnimationHelper {
 
-    fun performFragmentCircularRevealAnimation(rootView: View, activity: Activity) {
+    fun performFragmentCircularRevealAnimation(rootView: View, activity: Activity, listener: AnimatorListenerAdapter) {
         Executors.newSingleThreadExecutor().execute {
             while (true) {
                 if (rootView.isAttachedToWindow) {
@@ -35,6 +36,7 @@ object AnimationHelper {
                             startRadius.toFloat(), endRadius.toFloat()).apply {
                             duration = 500
                             interpolator = AccelerateDecelerateInterpolator()
+                            addListener(listener)
                             start()
                         }
 
