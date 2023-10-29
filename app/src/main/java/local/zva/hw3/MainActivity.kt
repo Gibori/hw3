@@ -33,13 +33,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //SplashScreen api работает с sdk 31, проверка на SDK
-        if (Build.VERSION.SDK_INT >= 31) {
+        //теоретически должна работать с sdk 31, но на 31-32 не отображает вектор поэтому 33
+        if (Build.VERSION.SDK_INT >= 33) {
             //это для того чтобы видно было, пускай висит 2 секунды
             var keepSplash = true
             installSplashScreen().setKeepOnScreenCondition { keepSplash }
+            Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, 1400L)
             //заменяем тему для вызова splash screen
             splashScreen.setSplashScreenTheme(R.style.Theme_AppSplash)
-            Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, 1400L)
             splashScreen.setOnExitAnimationListener { splashView ->
                 splashView.iconView!!
                     .animate()
