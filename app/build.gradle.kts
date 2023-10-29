@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId = "local.zva.hw3"
-        minSdk = 24
-        targetSdk = 33
+        minSdk = 27
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 

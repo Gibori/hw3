@@ -1,8 +1,12 @@
 package local.zva.hw3
 
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import local.zva.hw3.databinding.ActivityMainBinding
 
@@ -28,6 +32,25 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //SplashScreen api работает с sdk 31, проверка на SDK
+        if (Build.VERSION.SDK_INT >= 31) {
+            //это для того чтобы видно было, пускай висит 2 секунды
+            var keepSplash = true
+            installSplashScreen().setKeepOnScreenCondition { keepSplash }
+            //заменяем тему для вызова splash screen
+            splashScreen.setSplashScreenTheme(R.style.Theme_AppSplash)
+            Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, 1400L)
+            splashScreen.setOnExitAnimationListener { splashView ->
+                splashView.iconView!!
+                    .animate()
+                    .setDuration(600L)
+                    .alpha(0f)
+                    .withEndAction {
+                        splashView.remove()
+                    }
+                    .start()
+            }
+        }
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
