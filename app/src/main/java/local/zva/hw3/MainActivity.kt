@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             //это для того чтобы видно было, пускай висит 2 секунды
             var keepSplash = true
             installSplashScreen().setKeepOnScreenCondition { keepSplash }
-            Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, 1400L)
+            Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, 1000L)
             //заменяем тему для вызова splash screen
             splashScreen.setSplashScreenTheme(R.style.Theme_AppSplash)
             splashScreen.setOnExitAnimationListener { splashView ->

@@ -36,10 +36,8 @@ class DetailsFragment : Fragment() {
         favBtn.setOnClickListener {
             if (film.isInFavorites) {
                 favBtn.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                film.isInFavorites = false
             } else {
                 favBtn.setImageResource(R.drawable.ic_baseline_favorite_24)
-                film.isInFavorites = true
             }
         }
 

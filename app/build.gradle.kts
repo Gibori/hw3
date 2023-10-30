@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "local.zva.hw3"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "local.zva.hw3"
@@ -42,9 +42,9 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -52,6 +52,6 @@ dependencies {
     //
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.squareup.picasso:picasso:2.8")
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
     implementation("com.airbnb.android:lottie:6.1.0")
 }
