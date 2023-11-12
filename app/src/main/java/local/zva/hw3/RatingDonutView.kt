@@ -61,7 +61,25 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
         setMeasuredDimension(minSide, minSide)
     }
 
+    override fun onDraw(canvas: Canvas) {
+        drawRating(canvas)
+        drawText(canvas)
+    }
 
+    private fun setProgress(nProgress: Int) {
+        progress = nProgress
+        initPaints()
+        invalidate()
+    }
+
+    private fun drawText(canvas: Canvas) {
+        val message = String.format("%.1f", progress / 10f)
+        val widths = FloatArray(message.length)
+        digitPaint.getTextWidths(message, widths)
+        var advance = 0f
+        for (width in widths) advance += width
+        canvas.drawText(message, centerX - advance / 2, centerY + advance / 4, digitPaint)
+    }
 
     private fun drawRating(canvas: Canvas) {
         //размер кольца
