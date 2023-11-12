@@ -1,6 +1,7 @@
 package local.zva.hw3
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
@@ -36,6 +37,53 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
             attributes.recycle()
         }
         initPaints()
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        radius = if (width < height) width / 2f else height / 2f
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val width = chooseDimension(
+            MeasureSpec.getMode(widthMeasureSpec),
+            MeasureSpec.getSize(widthMeasureSpec)
+        )
+        val height = chooseDimension(
+            MeasureSpec.getMode(heightMeasureSpec),
+            MeasureSpec.getSize(heightMeasureSpec)
+        )
+
+        val minSide = width.coerceAtMost(height)
+
+        centerX = minSide /2f
+        centerY = minSide /2f
+
+        setMeasuredDimension(minSide, minSide)
+    }
+
+
+
+    private fun drawRating(canvas: Canvas) {
+        //размер кольца
+        val scale = radius * 0.8f
+
+        canvas.save()
+
+        canvas.translate(centerX, centerY)
+        oval.set(0f - scale, 0f - scale, scale, scale)
+        canvas.drawCircle(0f, 0f, radius, circlePaint)
+        canvas.drawArc(oval, -90f, convertProgressToDegrees(progress), false, strokePaint)
+
+        canvas.restore()
+    }
+
+    private fun convertProgressToDegrees(progress: Int): Float {
+        return progress * 3.6f
+    }
+
+    private fun chooseDimension(mode: Int, size: Int) = when (mode) {
+        MeasureSpec.AT_MOST, MeasureSpec.EXACTLY -> size
+        else -> 300
     }
 
     private fun initPaints() {
