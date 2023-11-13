@@ -66,7 +66,7 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
         drawText(canvas)
     }
 
-    private fun setProgress(nProgress: Int) {
+    fun setProgress(nProgress: Int) {
         progress = nProgress
         initPaints()
         invalidate()

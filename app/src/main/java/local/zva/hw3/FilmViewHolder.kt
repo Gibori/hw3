@@ -14,5 +14,6 @@ class FilmViewHolder(filmItem: View) : RecyclerView.ViewHolder(filmItem) {
             .resize(150, 150)
             .centerCrop()
             .into(binding.poster)
+        ratingDonut.setProgress((film.rating * 10).toInt())
     }
 }
