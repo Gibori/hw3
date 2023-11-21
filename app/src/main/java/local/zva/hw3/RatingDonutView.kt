@@ -19,7 +19,8 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
 
     private var stroke = 10f
 
-    private var progress = 50
+    var progress = 50
+    var digitAlpha = 0f
 
     private var scaleSize = 60f
 
@@ -66,7 +67,7 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
         drawText(canvas)
     }
 
-    fun setProgress(nProgress: Int) {
+    fun setRating(nProgress: Int) {
         progress = nProgress
         initPaints()
         invalidate()
@@ -76,6 +77,7 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
         val message = String.format("%.1f", progress / 10f)
         val widths = FloatArray(message.length)
         digitPaint.getTextWidths(message, widths)
+        digitPaint.alpha = (digitAlpha * 255).toInt()
         var advance = 0f
         for (width in widths) advance += width
         canvas.drawText(message, centerX - advance / 2, centerY + advance / 4, digitPaint)
@@ -118,6 +120,7 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
             setShadowLayer(5f, 0f, 0f, Color.DKGRAY)
             textSize = scaleSize
             typeface = Typeface.SANS_SERIF
+            alpha = 0
             isAntiAlias = true
         }
         circlePaint = Paint().apply {

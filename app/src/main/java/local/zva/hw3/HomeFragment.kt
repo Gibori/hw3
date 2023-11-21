@@ -2,10 +2,13 @@ package local.zva.hw3
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,6 +76,26 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             val decorator = TopSpacingItemDecoration(8)
             addItemDecoration(decorator)
+        }
+    }
+
+
+    private fun animateRatingDonutView(view: RatingDonutView, start: Int, end: Int) {
+        //аниматор для бублика
+        val ratingAnimator = ValueAnimator.ofInt()
+        ratingAnimator.apply {
+            addUpdateListener {
+                view.progress = it.animatedValue as Int
+                view.invalidate()
+            }
+            duration = (1000 * (end - start) / 100f).toLong()
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val animatorSet = AnimatorSet()
+        animatorSet.apply {
+            play(ratingAnimator)
+            start()
         }
     }
 }

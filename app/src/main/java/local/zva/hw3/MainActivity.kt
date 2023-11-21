@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                     " But what the computer does with the power is unimaginable to its creators."),
         Film("Tanin no kao", R.drawable.pst_6_af, "A businessman with a disfigured face obtains a lifelike mask from his doctor, but the mask starts altering his personality."),
         Film("Invasión", R.drawable.pst_7_i, "Вторжение..", 9.8f),
-        Film("Дорога к звездам", R.drawable.pst_8_rs, "Советская НФ"),
+        Film("Дорога к звездам", R.drawable.pst_8_rs, "Советская НФ", 7.2f),
     )
 
 
