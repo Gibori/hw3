@@ -7,7 +7,7 @@
     android:visibility="invisible"
     tools:visibility="visible"
     android:background="@drawable/grad_watch_later_screen"
-    tools:context=".WatchLaterFragment">
+    tools:context=".view.fragments.WatchLaterFragment">
 
     <TextView
         android:id="@+id/txt_centr"

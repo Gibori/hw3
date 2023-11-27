@@ -1,9 +1,12 @@
-package local.zva.hw3
+package local.zva.hw3.view.rv_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import local.zva.hw3.view.rv_viewholders.FilmViewHolder
+import local.zva.hw3.R
+import local.zva.hw3.domain.Film
 
 
 class FilmListRecyclerAdapter(private val clickListener: onItemClickListener) :

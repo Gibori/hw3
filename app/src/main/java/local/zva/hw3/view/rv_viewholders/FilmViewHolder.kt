@@ -1,4 +1,4 @@
-package local.zva.hw3
+package local.zva.hw3.view.rv_viewholders
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.view.View
@@ -7,6 +7,8 @@ import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import local.zva.hw3.databinding.FilmItemBinding
+import local.zva.hw3.domain.Film
+import local.zva.hw3.view.customviews.RatingDonutView
 import kotlin.math.abs
 
 class FilmViewHolder(filmItem: View) : RecyclerView.ViewHolder(filmItem) {

@@ -1,4 +1,4 @@
-package local.zva.hw3
+package local.zva.hw3.utils
 
 import android.animation.AnimatorListenerAdapter
 import android.app.Activity

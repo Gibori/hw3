@@ -52,7 +52,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <local.zva.hw3.RatingDonutView
+    <local.zva.hw3.view.customviews.RatingDonutView
         android:id="@+id/rating_donut"
         android:layout_width="60dp"
         android:layout_height="60dp"

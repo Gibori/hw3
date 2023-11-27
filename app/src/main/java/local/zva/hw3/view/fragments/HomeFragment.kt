@@ -1,4 +1,4 @@
-package local.zva.hw3
+package local.zva.hw3.view.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -11,14 +11,33 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import local.zva.hw3.R
 import local.zva.hw3.databinding.FragmentHomeBinding
+import local.zva.hw3.domain.Film
+import local.zva.hw3.utils.AnimationHelper
+import local.zva.hw3.view.MainActivity
+import local.zva.hw3.view.customviews.RatingDonutView
+import local.zva.hw3.view.rv_adapters.FilmListRecyclerAdapter
+import local.zva.hw3.view.rv_adapters.TopSpacingItemDecoration
+import local.zva.hw3.viewmodel.HomeFragmentVM
 import java.util.Locale
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(HomeFragmentVM::class.java)
+    }
+    private var filmDataBase = listOf<Film>()
+        set(value) {
+            if (field == value) return
+            field = value
+            filmsAdapter.addItems(field)
+        }
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
     override fun onCreateView(
@@ -33,6 +52,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+            filmDataBase = it
+        })
 
         binding.homeFragmentRoot.findViewById<SearchView>(R.id.search_view)
             .setOnQueryTextListener(object: SearchView.OnQueryTextListener {
@@ -42,10 +64,10 @@ class HomeFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isEmpty()) {
-                    filmsAdapter.addItems((activity as MainActivity).filmDataBase)
+                    filmsAdapter.addItems(filmDataBase)
                     return true
                 }
-                val result = MainActivity().filmDataBase.filter {
+                val result = filmDataBase.filter {
                     it.title.lowercase(Locale.getDefault())
                         .contains(newText.lowercase(Locale.getDefault()))
                 }
@@ -54,7 +76,7 @@ class HomeFragment : Fragment() {
             }
         })
         initRV()
-        filmsAdapter.addItems((activity as MainActivity).filmDataBase)
+        filmsAdapter.addItems(filmDataBase)
 
         val revealEndListener = object: AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -62,7 +84,11 @@ class HomeFragment : Fragment() {
             }
         }
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity(), revealEndListener)
+        AnimationHelper.performFragmentCircularRevealAnimation(
+            binding.homeFragmentRoot,
+            requireActivity(),
+            revealEndListener
+        )
     }
 
     private fun initRV() {

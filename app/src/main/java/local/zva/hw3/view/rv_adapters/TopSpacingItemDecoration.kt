@@ -1,4 +1,4 @@
-package local.zva.hw3
+package local.zva.hw3.view.rv_adapters
 
 import android.content.res.Resources
 import android.graphics.Rect

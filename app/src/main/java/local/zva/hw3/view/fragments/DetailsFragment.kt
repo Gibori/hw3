@@ -1,4 +1,4 @@
-package local.zva.hw3
+package local.zva.hw3.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import local.zva.hw3.R
 import local.zva.hw3.databinding.FragmentDetailsBinding
+import local.zva.hw3.domain.Film
 
 
 class DetailsFragment : Fragment() {

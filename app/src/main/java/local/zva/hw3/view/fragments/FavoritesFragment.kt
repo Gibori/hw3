@@ -1,4 +1,4 @@
-package local.zva.hw3
+package local.zva.hw3.view.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -8,7 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import local.zva.hw3.utils.AnimationHelper
+import local.zva.hw3.view.rv_adapters.FilmListRecyclerAdapter
+import local.zva.hw3.view.MainActivity
+import local.zva.hw3.R
+import local.zva.hw3.view.rv_adapters.TopSpacingItemDecoration
 import local.zva.hw3.databinding.FragmentFavoritesBinding
+import local.zva.hw3.domain.Film
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
@@ -49,6 +55,10 @@ class FavoritesFragment : Fragment() {
             }
         }
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentRoot, requireActivity(), revealEndListener)
+        AnimationHelper.performFragmentCircularRevealAnimation(
+            binding.favoritesFragmentRoot,
+            requireActivity(),
+            revealEndListener
+        )
     }
 }

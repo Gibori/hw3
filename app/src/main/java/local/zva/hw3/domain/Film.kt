@@ -1,4 +1,4 @@
-package local.zva.hw3
+package local.zva.hw3.domain
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
