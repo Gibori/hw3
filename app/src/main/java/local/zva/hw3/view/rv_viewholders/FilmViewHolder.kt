@@ -6,6 +6,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import local.zva.hw3.data.ApiConstants
 import local.zva.hw3.databinding.FilmItemBinding
 import local.zva.hw3.domain.Film
 import local.zva.hw3.view.customviews.RatingDonutView
@@ -17,7 +18,7 @@ class FilmViewHolder(filmItem: View) : RecyclerView.ViewHolder(filmItem) {
         title.text = film.title
         description.text = film.description
         Picasso.get()
-            .load(film.poster)
+            .load(ApiConstants.IMAGES_URL + "w342" + film.poster)
             .resize(150, 150)
             .centerCrop()
             .into(binding.poster)

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
 import local.zva.hw3.R
+import local.zva.hw3.data.ApiConstants
 import local.zva.hw3.databinding.FragmentDetailsBinding
 import local.zva.hw3.domain.Film
 
@@ -61,7 +63,12 @@ class DetailsFragment : Fragment() {
 
         binding.detailsToolbar.title = film.title
         binding.detailsDescription.text = film.description
-        binding.detailsPoster.setImageResource(film.poster)
+//        binding.detailsPoster.setImageResource(film.poster)
+        Picasso.get()
+            .load(ApiConstants.IMAGES_URL + "w780" + film.poster)
+            .resize(780, 780)
+            .centerCrop()
+            .into(binding.detailsPoster)
     }
 
 }

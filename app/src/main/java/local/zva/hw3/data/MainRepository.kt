@@ -1,10 +1,7 @@
 package local.zva.hw3.data
 
-import local.zva.hw3.R
-import local.zva.hw3.domain.Film
-
 class MainRepository {
-    val filmDataBase = listOf(
+    /*val filmDataBase = listOf(
         Film("Prazske noci", R.drawable.pst_1_pn, "Что-то там про Прагу.", 7.7f),
         Film("Santo el enmascarado de plata y Blue Demon contra los monstruos",
             R.drawable.pst_2_sbvm,
@@ -19,5 +16,5 @@ class MainRepository {
         Film("Tanin no kao", R.drawable.pst_6_af, "A businessman with a disfigured face obtains a lifelike mask from his doctor, but the mask starts altering his personality."),
         Film("Invasión", R.drawable.pst_7_i, "Вторжение..", 9.8f),
         Film("Дорога к звездам", R.drawable.pst_8_rs, "Советская НФ", 7.2f),
-    )
+    )*/
 }
