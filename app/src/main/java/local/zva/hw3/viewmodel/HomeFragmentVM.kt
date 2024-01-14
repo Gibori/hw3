@@ -9,9 +9,10 @@ class HomeFragmentVM : ViewModel() {
 
     val filmsListLiveData = MutableLiveData<List<Film>>()
     private var interactor = App.instance.interactor
+    var page = 1
 
     init {
-        interactor.getFilmsFromApi(1, object : ApiCallback {
+        interactor.getFilmsFromApi(page, object : ApiCallback {
             override fun onSuccess(films: List<Film>) {
                 filmsListLiveData.postValue(films)
             }

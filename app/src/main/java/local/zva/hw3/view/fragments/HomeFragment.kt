@@ -2,13 +2,11 @@ package local.zva.hw3.view.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,7 +18,6 @@ import local.zva.hw3.databinding.FragmentHomeBinding
 import local.zva.hw3.domain.Film
 import local.zva.hw3.utils.AnimationHelper
 import local.zva.hw3.view.MainActivity
-import local.zva.hw3.view.customviews.RatingDonutView
 import local.zva.hw3.view.rv_adapters.FilmListRecyclerAdapter
 import local.zva.hw3.view.rv_adapters.TopSpacingItemDecoration
 import local.zva.hw3.viewmodel.HomeFragmentVM
@@ -75,7 +72,35 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
+        //пагинация решение в лоб
+        //скролллистинер который сообщает что загруженные элементы закончились
+        val scrollListener = object: RecyclerView.OnScrollListener() {
+            val layoutManager = binding.recyclerMain.layoutManager as RecyclerView.LayoutManager
+            val firstVisibleItem = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+            val lastItem = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                println("!!! totalItem = $totalItemCount, lastItem = $lastItem")
+                if (lastItem >= totalItemCount) {
+//                    viewModel.page =+ 1
+//                    val interactor = App.instance.interactor
+//                    interactor.getFilmsFromApi(viewModel.page, object : HomeFragmentVM.ApiCallback {
+//                        override fun onSuccess(films: List<Film>) {
+//                            viewModel.filmsListLiveData.postValue(films)
+//                        }
+//
+//                        override fun onFailure() { }
+//                    })
+//                    filmsAdapter.notifyDataSetChanged()
+                    Toast.makeText(requireContext(), "Конец списка", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
         initRV()
+        binding.recyclerMain.setOnScrollListener(scrollListener)
         filmsAdapter.addItems(filmDataBase)
 
         val revealEndListener = object: AnimatorListenerAdapter() {
@@ -105,24 +130,5 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-    private fun animateRatingDonutView(view: RatingDonutView, start: Int, end: Int) {
-        //аниматор для бублика
-        val ratingAnimator = ValueAnimator.ofInt()
-        ratingAnimator.apply {
-            addUpdateListener {
-                view.progress = it.animatedValue as Int
-                view.invalidate()
-            }
-            duration = (1000 * (end - start) / 100f).toLong()
-            interpolator = AccelerateDecelerateInterpolator()
-        }
-
-        val animatorSet = AnimatorSet()
-        animatorSet.apply {
-            play(ratingAnimator)
-            start()
-        }
-    }
 }
 
