@@ -26,7 +26,6 @@ class Interactor(private val repository: MainRepository, private val retrofitSer
 
                 override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
                     println("!!! при загрузке что-то пошло не так")
-                    println("!!! $")
                     callback.onFailure()
                 }
             })
